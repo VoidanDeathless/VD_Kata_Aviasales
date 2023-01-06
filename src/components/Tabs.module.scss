@@ -1,0 +1,44 @@
+.tabs {
+  height: 50px;
+  border: 1px solid #dfe5ec;
+  margin-bottom: 20px;
+  background-color: #dfe5ec;
+  border-radius: 5px;
+  overflow: hidden;
+
+  &__form {
+    display: flex;
+    gap: 1px;
+    height: 100%;
+  }
+
+  &__radio {
+    display: none;
+  }
+
+  &__item {
+    font-weight: 600;
+    font-size: 12px;
+    line-height: 20px;
+    background-color: #ffffff;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px;
+    text-transform: uppercase;
+    flex-grow: 1;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.15s;
+
+    &:not(:checked):hover {
+      background-color: #f1fcff;
+    }
+  }
+
+  &__radio:checked + &__item {
+    background-color: #2196f3;
+    color: #ffffff;
+  }
+}

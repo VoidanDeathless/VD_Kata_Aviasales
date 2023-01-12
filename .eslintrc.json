@@ -38,6 +38,19 @@
           }
         ]
       }
+    },
+    {
+      "files": ["src/**/*Slice.js"],
+      "rules": {
+        "no-param-reassign": ["error", { "props": false }],
+        "import/no-unused-modules": [0]
+      }
+    },
+    {
+      "files": ["src/**/store.js"],
+      "rules": {
+        "import/no-unused-modules": [0]
+      }
     }
   ],
   "parserOptions": {

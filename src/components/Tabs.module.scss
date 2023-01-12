@@ -12,11 +12,15 @@
     height: 100%;
   }
 
+  &__item {
+    flex-grow: 1;
+  }
+
   &__radio {
     display: none;
   }
 
-  &__item {
+  &__label {
     font-weight: 600;
     font-size: 12px;
     line-height: 20px;
@@ -27,7 +31,6 @@
     align-items: center;
     padding: 15px;
     text-transform: uppercase;
-    flex-grow: 1;
     text-align: center;
     cursor: pointer;
     transition: all 0.15s;
@@ -37,7 +40,7 @@
     }
   }
 
-  &__radio:checked + &__item {
+  &__radio:checked + &__label {
     background-color: #2196f3;
     color: #ffffff;
   }

@@ -5,14 +5,22 @@ export const getSearchId = createAsyncThunk('tickets/getSearchId', () =>
 );
 
 export const getTickets = createAsyncThunk('tickets/getTickets', (searchId) =>
-  fetch(`https://aviasales-test-api.kata.academy/tickets?searchId=${searchId}`).then((res) => res.json())
+  fetch(`https://aviasales-test-api.kata.academy/tickets?searchId=${searchId}`)
+    .then((res) => {
+      if (!res.ok) {
+        throw new Error();
+      }
+      return res.json();
+    })
+    .catch(() => [])
 );
 
 const initialState = {
   searchId: '',
   tickets: [],
   ticketsPerPage: 5,
-  isLoading: false,
+  sortType: '',
+  isLoading: true,
 };
 
 export const ticketsSlice = createSlice({
@@ -22,6 +30,10 @@ export const ticketsSlice = createSlice({
     showMoreTickets: (state) => {
       state.ticketsPerPage += 5;
     },
+    changeSortType: (state, action) => {
+      state.sortType = action.payload;
+      state.ticketsPerPage = 5;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -30,7 +42,6 @@ export const ticketsSlice = createSlice({
       })
       .addCase(getSearchId.fulfilled, (state, action) => {
         state.searchId = action.payload.searchId;
-        state.isLoading = false;
       })
       .addCase(getSearchId.rejected, (state) => {
         state.isLoading = false;
@@ -39,13 +50,13 @@ export const ticketsSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(getTickets.fulfilled, (state, action) => {
-        state.tickets = action.payload.tickets;
-        state.isLoading = false;
+        state.tickets = state.tickets.concat(action.payload.tickets);
+        state.isLoading = !action.payload.stop;
       })
       .addCase(getTickets.rejected, (state) => {
-        state.isLoading = false;
+        state.isLoading = true;
       });
   },
 });
-export const { showMoreTickets } = ticketsSlice.actions;
+export const { showMoreTickets, changeSortType } = ticketsSlice.actions;
 export default ticketsSlice.reducer;

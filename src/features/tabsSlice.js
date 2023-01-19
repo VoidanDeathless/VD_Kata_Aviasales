@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  currentTab: 0,
+  currentTab: 2,
 };
 
 export const tabsSlice = createSlice({

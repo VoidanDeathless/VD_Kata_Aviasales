@@ -1,14 +1,15 @@
 import { useDispatch, useSelector } from 'react-redux';
 
 import { changeCurrentTab } from '../features/tabsSlice';
+import { changeSortType } from '../features/ticketsSlice';
 
 import styles from './Tabs.module.scss';
 
 export default function Tabs() {
   const tabs = [
-    { id: 0, name: 'Самый дешевый' },
-    { id: 1, name: 'Самый быстрый' },
-    { id: 2, name: 'Оптимальный' },
+    { id: 0, name: 'Самый дешевый', sortType: 'Price' },
+    { id: 1, name: 'Самый быстрый', sortType: 'Duration' },
+    { id: 2, name: 'Оптимальный', sortType: 'Optimal' },
   ];
   const currentTab = useSelector((state) => state.tabs.currentTab);
   const dispatch = useDispatch();
@@ -23,6 +24,7 @@ export default function Tabs() {
               type="radio"
               onChange={() => {
                 dispatch(changeCurrentTab(tab.id));
+                dispatch(changeSortType(tab.sortType));
               }}
               name="tab"
               id={`radio-${tab.id}`}
